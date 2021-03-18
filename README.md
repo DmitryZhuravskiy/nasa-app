@@ -6,6 +6,18 @@ DEMO - "https://dmitryzhuravskiy.github.io/nasa-app/"
 Фон сделан на чистом CSS с использованием анимации @keyframes. Фон старается походить на звездное небо с отдающим синим звездами.
 
 <img src="https://github.com/DmitryZhuravskiy/nasa-app/raw/master/public/images/nasa--1.jpg "/>
+<b>Стартовая страница</b>
+<br /><br /><br />
+
+<img src="https://github.com/DmitryZhuravskiy/nasa-app/raw/master/public/images/nasa--2.jpg "/>
+<b>Добавление в список, удаление и при клике получение подробной информации (ниже)</b>
+<br /><br /><br />
+
+<img src="https://github.com/DmitryZhuravskiy/nasa-app/raw/master/public/images/nasa--3.jpg "/>
+<b>Добавление в список, удаление и при клике получение подробной информации (ниже)</b>
+<br /><br /><br />
+
+<img src="https://github.com/DmitryZhuravskiy/nasa-app/raw/master/public/images/nasa--4.jpg "/>
 <b>Добавление в список, удаление и при клике получение подробной информации (ниже)</b>
 <br /><br /><br />
 
