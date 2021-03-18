@@ -10,14 +10,14 @@ DEMO - "https://dmitryzhuravskiy.github.io/nasa-app/"
 <br /><br /><br />
 
 <img src="https://github.com/DmitryZhuravskiy/nasa-app/raw/master/public/images/nasa--2.jpg "/>
-<b>Добавление в список, удаление и при клике получение подробной информации (ниже)</b>
+<b>Страница для отображения одного выбранного поста</b>
 <br /><br /><br />
 
 <img src="https://github.com/DmitryZhuravskiy/nasa-app/raw/master/public/images/nasa--3.jpg "/>
-<b>Добавление в список, удаление и при клике получение подробной информации (ниже)</b>
+<b>Страница выбора постов с задаваемой выборкой сверху...</b>
 <br /><br /><br />
 
 <img src="https://github.com/DmitryZhuravskiy/nasa-app/raw/master/public/images/nasa--4.jpg "/>
-<b>Добавление в список, удаление и при клике получение подробной информации (ниже)</b>
+<b>... и в конце с формой выбора и пагинацией страниц</b>
 <br /><br /><br />
 
