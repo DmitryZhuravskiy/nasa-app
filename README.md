@@ -1,14 +1,14 @@
 <h1><b>Nasa App</b></h1>
 
-Презентационная версия -https://dmitryzhuravskiy.github.io/nasa-app/ ;
+Презентационная версия - https://dmitryzhuravskiy.github.io/nasa-app/ ;
 <br /><br />
 
 <h2><b>Руководство по запуску</b></h2>
-1. git clone https://github.com/DmitryZhuravskiy/nasa-app.git - копируем репозиторий;<br />
-2. cd ./nasa-app - переходим в папку с локальной версией;<br />
-3. npm install - устанавливаем зависимости;<br />
-4. npm start - для просмотра локальной версии в браузере по адресу http://localhost:3000/ ;<br />
-5. или npm run build для сборки проекта;<br />
+<b>1.</b> git clone https://github.com/DmitryZhuravskiy/nasa-app.git <i>- копируем репозиторий;</i><br />
+<b>2.</b> cd ./nasa-app <i>- переходим в папку с локальной версией;</i><br />
+<b>3.</b> npm install <i>- устанавливаем зависимости;</i><br />
+<b>4.</b> npm start <i>- для просмотра локальной версии в браузере по адресу http://localhost:3000/ ;</i><br />
+<b>5.</b> <i>или</i> npm run build <i>для сборки проекта;</i><br />
 <br /><br />
 <h2><b>Описание проекта</b></h2>
 
