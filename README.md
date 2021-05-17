@@ -1,6 +1,6 @@
 <h1><b>Nasa App</b></h1>
 
-Презентационная версия - https://dmitryzhuravskiy.github.io/nasa-app/ 
+Презентационная версия - https://dmitryzhuravskiy.github.io/nasa-app/ ;
 <br /><br />
 
 <h2><b>Руководство по запуску</b></h2>
