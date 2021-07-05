@@ -12,8 +12,7 @@ Presentation - https://dmitryzhuravskiy.github.io/nasa-app/ ;
 <br /><br />
 <h2><b>Description of the project</b></h2>
 
-Запросы на nasa.api - Astronomy Picture of the Day (APOD). Отрабатываются 3 разных запроса отдельно на каждой странице: запрос на один пост, по умолчанию на конкретную дату, однако, дату можно изменить на любой доступный день, запрос на 4 случайно выбранных поста и запрос на диапазон постов, выбираемых за определенных промежуток времени. Промежуток времени после первой загрузки заданных параметров по умолчанию можно изменить. Также на странице выборке постов за промежуток времени есть пагинация с выводом по 5 постов на страницу.
-Фон сделан на чистом CSS с использованием анимации @keyframes. Фон старается походить на звездное небо с отдающим синим звездами. Запросы осуществляются с помощью хука useEffect.
+Requests for nasa.api - Astronomy Picture of the Day (APOD). 3 different requests are processed separately on each page: a request for one post, by default for a specific date, however, the date can be changed to any available day, a request for 4 randomly selected posts, and a request for a range of posts selected over a certain period. The time elapsed after the first loading of the default parameters can be changed. Also on the page for the selection of posts over a period there is pagination with the output of 5 posts per page. The background is made with pure CSS using @keyframes animation. The background tries to resemble a starry sky with blue stars. Requests are made using the useEffect hook.
 
 <img src="https://github.com/DmitryZhuravskiy/nasa-app/raw/master/public/images/nasa--1.jpg "/>
 <h3><b>Start page</b></h3>
