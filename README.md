@@ -16,15 +16,15 @@ Presentation - https://dmitryzhuravskiy.github.io/nasa-app/ ;
 Фон сделан на чистом CSS с использованием анимации @keyframes. Фон старается походить на звездное небо с отдающим синим звездами. Запросы осуществляются с помощью хука useEffect.
 
 <img src="https://github.com/DmitryZhuravskiy/nasa-app/raw/master/public/images/nasa--1.jpg "/>
-<b>Start page</b>
+<h3><b>Start page</b></h3>
 <br /><br /><br /><br /><br />
 <img src="https://github.com/DmitryZhuravskiy/nasa-app/raw/master/public/images/nasa--2.jpg "/>
-<b>Page to display one selected post</b>
+<h3><b>Page to display one selected post</b></h3>
 <br /><br /><br /><br /><br />
 <img src="https://github.com/DmitryZhuravskiy/nasa-app/raw/master/public/images/nasa--3.jpg "/>
-<b>Post selection page with selectable selection from the top...</b>
+<h3><b>Post selection page with selectable selection from the top...</b></h3>
 <br /><br /><br /><br /><br />
 <img src="https://github.com/DmitryZhuravskiy/nasa-app/raw/master/public/images/nasa--4.jpg "/>
-<b>... and at the end with a selection form and page pagination</b>
+<h3><b>... and at the end with a selection form and page pagination</b></h3>
 <br />
 
