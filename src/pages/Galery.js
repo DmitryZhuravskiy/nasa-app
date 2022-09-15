@@ -1,72 +1,86 @@
 import React, { useState, useEffect } from "react";
-import NavBar from "../../components/NavBar";
+import NavBar from "../components/NavBar";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  photoData,
-  setStartDay,
-  setStartMonth,
-  setStartYear,
-  setEndDay,
-  setEndMonth,
-  setEndYear,
-  setPageCount,
-  changeActivePage,
-  changeStartPage,
-  changeEndPage,
-  setPageNumbers,
-  fetchPhoto
-} from "./photoChoiseSlice";
-const apiKey = process.env.REACT_APP_NASA_KEY;
+import { fetchGalery, changeStart, changeEnd } from "../redux/slices/galerySlice";
 
-export default function NasaPhotosChoise() {
-  const pageNumbersNew = [];
-  const {
-    photoData,
-    dateOfStartDay,
-    dateOfStartMonth,
-    dateOfStartYear,
-    dateOfStartSubmit,
-    dateOfEndDay,
-    dateOfEndMonth,
-    dateOfEndYear,
-    dateOfEndSubmit,
-    pageCount,
-    activePage,
-    startPage,
-    endPage,
-    pageNumbers,
-    perPage
-  } = useSelector((state) => state.photoChoise);
+const Galery = () => {
+  const { photoData, dateOfStart, dateOfEnd } = useSelector(
+    (state) => state.galery
+  );
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchPhoto());
-    dispatch(setPageCount(photoData.length));
-    dispatch(
-      dateOfStartSubmit(
-        `${dateOfStartYear}-${dateOfStartMonth}-${dateOfStartDay}`
-      )
-    );
-    dispatch(
-      dateOfEndSubmit(`${dateOfEndYear}-${dateOfEndMonth}-${dateOfEndDay}`)
-    );
+  const [dateOfStartDay, setStartDay] = useState("02");
+  const [dateOfStartMonth, setStartMonth] = useState("01");
+  const [dateOfStartYear, setStartYear] = useState("2016");
 
-    for (let i = 1; i <= Math.ceil(pageCount / perPage); i++) {
+  const [dateOfEndDay, setEndDay] = useState("05");
+  const [dateOfEndMonth, setEndMonth] = useState("01");
+  const [dateOfEndYear, setEndYear] = useState("2016");
+
+  //const [dateOfStartSubmit, submitStartDate] = useState(dateOfStart);
+  //const [dateOfEndSubmit, submitEndDate] = useState(dateOfEnd);
+
+  const [pageCount, setPageCount] = useState(12);
+  const [activePage, changeActivePage] = useState(1);
+  const [startPage, changeStartPage] = useState(1);
+  const [endPage, changeEndPage] = useState(4);
+  const [pageNumbers, setPageNumbers] = useState([]);
+  const perPage = 5;
+
+  useEffect(() => {
+    dispatch(fetchGalery(`&start_date=${dateOfStart}&end_date=${dateOfEnd}`));
+    console.log(photoData);
+    const pageNumbersNew = [];
+    for (let i = 1; i <= Math.ceil(photoData.length / perPage); i++) {
       pageNumbersNew.push(i);
     }
-    dispatch(setPageNumbers(pageNumbersNew));
-  }, [dateOfStartSubmit, dateOfEndSubmit, pageNumbers]);
+    setPageNumbers(pageNumbersNew);
+    setPageCount(pageNumbers.length);
+  }, [dateOfStart, dateOfEnd]);
 
-  function changePage(number) {
-    dispatch(changeActivePage(number));
-    dispatch(changeEndPage(number * perPage));
-    dispatch(changeStartPage((number - 1) * perPage));
+  function handleChangeStartDay(e) {
+    e.preventDefault();
+    setStartDay(e.target.value);
   }
 
-  const handleSubmit = (e) => {
+  function handleChangeStartMonth(e) {
     e.preventDefault();
-    dispatch(fetchPhoto());
-  };
+    setStartMonth(e.target.value);
+  }
+
+  function handleChangeStartYear(e) {
+    e.preventDefault();
+    setStartYear(e.target.value);
+  }
+
+  function handleChangeEndDay(e) {
+    e.preventDefault();
+    setEndDay(e.target.value);
+  }
+
+  function handleChangeEndMonth(e) {
+    e.preventDefault();
+    setEndMonth(e.target.value);
+  }
+
+  function handleChangeEndYear(e) {
+    e.preventDefault();
+    setEndYear(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(changeStart(`${dateOfStartYear}-${dateOfStartMonth}-${dateOfStartDay}`));
+    dispatch(changeEnd(`${dateOfEndYear}-${dateOfEndMonth}-${dateOfEndDay}`));
+  }
+
+  function changePage(number) {
+    changeActivePage(number);
+    changeEndPage(number * perPage);
+    changeStartPage((number - 1) * perPage);
+  }
+
+  if (!photoData) return <div />;
 
   return (
     <div>
@@ -98,10 +112,10 @@ export default function NasaPhotosChoise() {
       <ul className="pagination">
         {pageNumbers.map(
           (number) =>
-            (!(number == activePage) && (
+            (!(number === activePage) && (
               <li key={number} className="page-item">
                 <a
-                  onClick={() => dispatch(changePage(number))}
+                  onClick={() => changePage(number)}
                   href="#"
                   className="page-link"
                 >
@@ -109,10 +123,9 @@ export default function NasaPhotosChoise() {
                 </a>
               </li>
             )) ||
-            (number == activePage && (
+            (number === activePage && (
               <li key={number} className="page-item">
                 <a
-                  onClick={() => dispatch(changePage(number))}
                   href="#"
                   className="page-link page-link--active"
                 >
@@ -137,7 +150,7 @@ export default function NasaPhotosChoise() {
                 max="31"
                 min="1"
                 value={dateOfStartDay}
-                onChange={(e) => dispatch(setStartDay(e.target.value))}
+                onChange={(e) => handleChangeStartDay(e)}
               />
             </div>
             <div className="pin__input">
@@ -148,7 +161,7 @@ export default function NasaPhotosChoise() {
                 max="12"
                 min="1"
                 value={dateOfStartMonth}
-                onChange={(e) => dispatch(setStartMonth(e.target.value))}
+                onChange={(e) => handleChangeStartMonth(e)}
               />
             </div>
             <div className="pin__input">
@@ -159,7 +172,7 @@ export default function NasaPhotosChoise() {
                 min="1980"
                 max="2021"
                 value={dateOfStartYear}
-                onChange={(e) => dispatch(setStartYear(e.target.value))}
+                onChange={(e) => handleChangeStartYear(e)}
               />
             </div>
           </div>
@@ -173,7 +186,7 @@ export default function NasaPhotosChoise() {
                 max="31"
                 min="1"
                 value={dateOfEndDay}
-                onChange={(e) => dispatch(setEndDay(e.target.value))}
+                onChange={(e) => handleChangeEndDay(e)}
               />
             </div>
             <div className="pin__input">
@@ -184,7 +197,7 @@ export default function NasaPhotosChoise() {
                 max="12"
                 min="1"
                 value={dateOfEndMonth}
-                onChange={(e) => dispatch(setEndMonth(e.target.value))}
+                onChange={(e) => handleChangeEndMonth(e)}
               />
             </div>
             <div className="pin__input">
@@ -195,7 +208,7 @@ export default function NasaPhotosChoise() {
                 min="1980"
                 max="2021"
                 value={dateOfEndYear}
-                onChange={(e) => dispatch(setEndYear(e.target.value))}
+                onChange={(e) => handleChangeEndYear(e)}
               />
             </div>
           </div>
@@ -204,4 +217,6 @@ export default function NasaPhotosChoise() {
       </form>
     </div>
   );
-}
+};
+
+export default Galery;

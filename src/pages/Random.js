@@ -1,16 +1,16 @@
 import React from "react";
 import { useEffect } from "react";
-import NavBar from "../../components/NavBar";
+import NavBar from "../components/NavBar";
 import { useDispatch, useSelector } from "react-redux";
-import { getAnotherPosts, fetchPhoto } from "./randomPhotoSlice";
+import { fetchRandom } from "../redux/slices/randomSlice";
 
-const NasaRandomPhoto = () => {
-  const { photoData, dataClicker } = useSelector((state) => state.randomPhoto);
+const Random = () => {
+  const { photoData } = useSelector((state) => state.random);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPhoto());
-  }, [dataClicker]);
+    dispatch(fetchRandom());
+  }, []);
 
   if (!photoData) return <div />;
 
@@ -41,14 +41,11 @@ const NasaRandomPhoto = () => {
           </div>
         </div>
       ))}
-      <button
-        className="pin__submit"
-        onClick={() => dispatch(getAnotherPosts())}
-      >
+      <button className="pin__submit" onClick={() => dispatch(fetchRandom())}>
         Get another random posts
       </button>
     </div>
   );
 };
 
-export default NasaRandomPhoto;
+export default Random;

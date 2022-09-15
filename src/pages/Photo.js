@@ -1,30 +1,26 @@
-import NavBar from "../../components/NavBar";
-import React, { useEffect } from "react";
+import NavBar from "../components/NavBar";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  handleChangeDay,
-  handleChangeMonth,
-  handleChangeYear,
-  handleSubmit,
-  fetchPhoto
-} from "./photoSlice";
+import { handleSubmit, fetchPhoto } from "../redux/slices/photoSlice";
 
 const Photo = () => {
-  const {
-    photoData,
-    dateOfDay,
-    dateOfMonth,
-    dateOfYear,
-    dateOfPhotoSubmit
-  } = useSelector((state) => state.photo);
+  const { photoData, dateOfPhotoSubmit } = useSelector((state) => state.photo);
   const dispatch = useDispatch();
+  const [dateOfDay, handleChangeDay] = useState(`01`);
+  const [dateOfMonth, handleChangeMonth] = useState(`02`);
+  const [dateOfYear, handleChangeYear] = useState(`2016`);
+
+  const getNewPhoto = (e) => {
+    e.preventDefault();
+    dispatch(handleSubmit(`${dateOfYear}-${dateOfMonth}-${dateOfDay}`));
+  };
 
   useEffect(() => {
     dispatch(fetchPhoto(dateOfPhotoSubmit));
-    console.log(photoData, dateOfPhotoSubmit);
+
   }, [dateOfPhotoSubmit]);
 
-  if (!photoData) return <div className="alert-message">There is no data</div>;
+  if (!photoData) return <div />;
 
   return (
     <div className="nasa-photo">
@@ -50,7 +46,7 @@ const Photo = () => {
           <p className="pin__date">{photoData.date}</p>
           <p className="pin__description">{photoData.explanation}</p>
           <form
-            onSubmit={(e) => dispatch(handleSubmit(e))}
+            onSubmit={(e) => getNewPhoto(e)}
             className="nasa-photo__choise-from"
           >
             <div className="pin__input">
@@ -61,7 +57,7 @@ const Photo = () => {
                 max="31"
                 min="1"
                 value={dateOfDay}
-                onChange={(e) => dispatch(handleChangeDay(e.target.value))}
+                onChange={(e) => handleChangeDay(e.target.value)}
               />
             </div>
             <div className="pin__input">
@@ -72,7 +68,7 @@ const Photo = () => {
                 max="12"
                 min="1"
                 value={dateOfMonth}
-                onChange={(e) => dispatch(handleChangeMonth(e.target.value))}
+                onChange={(e) => handleChangeMonth(e.target.value)}
               />
             </div>
             <div className="pin__input">
@@ -83,7 +79,7 @@ const Photo = () => {
                 min="1980"
                 max="2021"
                 value={dateOfYear}
-                onChange={(e) => dispatch(handleChangeYear(e.target.value))}
+                onChange={(e) => handleChangeYear(e.target.value)}
               />
             </div>
             <input className="pin__submit" type="submit" value="Get new post" />
