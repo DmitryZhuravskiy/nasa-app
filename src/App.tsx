@@ -1,12 +1,13 @@
+import React from "react";
+import { Provider } from "react-redux";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Random from "./pages/Random";
-import { Provider } from "react-redux";
 import store from "./redux/store";
 import Photo from "./pages/Photo";
 import Galery from "./pages/Galery";
 
-function App() {
+const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -21,6 +22,6 @@ function App() {
       </BrowserRouter>
     </Provider>
   );
-}
+};
 
 export default App;

@@ -1,17 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import apiKey from "../../constants";
+import {
+  PhotoDataProps,
+  PhotoProps,
+  PhotoPropsRandom,
+  StateProps,
+  GaleryProps,
+} from "./photoSlice";
 
-const initialState = {
-  photoData: null,
+const initialState: GaleryProps = {
+  photoData: [],
   dateOfStart: "2016-01-02",
   dateOfEnd: "2016-01-05",
-  status: '',
+  status: "",
 };
 
 export const fetchGalery = createAsyncThunk(
   "galery/fetchGalery",
-  async (answer) => {
+  async (answer: string) => {
     const { data } = await axios.get(
       `https://api.nasa.gov/planetary/apod?api_key=${apiKey}${answer}`
     );
@@ -27,8 +34,8 @@ export const photoSlice = createSlice({
       state.dateOfStart = action.payload;
     },
     changeEnd: (state, action) => {
-        state.dateOfEnd = action.payload;
-      },
+      state.dateOfEnd = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGalery.pending, (state) => {

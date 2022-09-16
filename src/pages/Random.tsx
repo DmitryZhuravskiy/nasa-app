@@ -3,10 +3,14 @@ import { useEffect } from "react";
 import NavBar from "../components/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRandom } from "../redux/slices/randomSlice";
+import {PhotoDataProps, PhotoProps, PhotoPropsRandom, StateProps } from '../redux/slices/photoSlice';
+import store from "../redux/store";
 
-const Random = () => {
-  const { photoData } = useSelector((state) => state.random);
-  const dispatch = useDispatch();
+
+
+const Random: React.FunctionComponent = () => {
+  const { photoData } = useSelector((state: StateProps) => state.random);
+  const dispatch = useDispatch<typeof store.dispatch>();
 
   useEffect(() => {
     dispatch(fetchRandom());
@@ -25,9 +29,9 @@ const Random = () => {
             ) : (
               <iframe
                 title="space-video"
-                src={photoData.url}
+                src={photo.url}
                 frameBorder="0"
-                gesture="media"
+                //gesture="media"
                 allow="encrypted-media"
                 allowFullScreen
                 className="photo"

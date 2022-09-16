@@ -2,22 +2,25 @@ import NavBar from "../components/NavBar";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleSubmit, fetchPhoto } from "../redux/slices/photoSlice";
+import {PhotoDataProps, PhotoProps, PhotoPropsRandom, StateProps } from '../redux/slices/photoSlice';
+import store from "../redux/store";
 
-const Photo = () => {
-  const { photoData, dateOfPhotoSubmit } = useSelector((state) => state.photo);
-  const dispatch = useDispatch();
+const Photo: React.FunctionComponent = () => {
+  const { photoData, dateOfPhotoSubmit } = useSelector(
+    (state: StateProps) => state.photo
+  );
+  const dispatch = useDispatch<typeof store.dispatch>();
   const [dateOfDay, handleChangeDay] = useState(`01`);
   const [dateOfMonth, handleChangeMonth] = useState(`02`);
   const [dateOfYear, handleChangeYear] = useState(`2016`);
 
-  const getNewPhoto = (e) => {
+  const getNewPhoto = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(handleSubmit(`${dateOfYear}-${dateOfMonth}-${dateOfDay}`));
   };
 
   useEffect(() => {
     dispatch(fetchPhoto(dateOfPhotoSubmit));
-
   }, [dateOfPhotoSubmit]);
 
   if (!photoData) return <div />;
@@ -34,7 +37,7 @@ const Photo = () => {
               title="space-video"
               src={photoData.url}
               frameBorder="0"
-              gesture="media"
+              //gesture="media"
               allow="encrypted-media"
               allowFullScreen
               className="photo"
@@ -46,7 +49,7 @@ const Photo = () => {
           <p className="pin__date">{photoData.date}</p>
           <p className="pin__description">{photoData.explanation}</p>
           <form
-            onSubmit={(e) => getNewPhoto(e)}
+            onSubmit={(e: React.FormEvent<HTMLFormElement> ) => getNewPhoto(e)}
             className="nasa-photo__choise-from"
           >
             <div className="pin__input">

@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchGalery, changeStart, changeEnd } from "../redux/slices/galerySlice";
+import {
+  fetchGalery,
+  changeStart,
+  changeEnd,
+} from "../redux/slices/galerySlice";
+import {
+  PhotoDataProps,
+  PhotoProps,
+  PhotoPropsRandom,
+  StateProps,
+  GaleryProps,
+} from "../redux/slices/photoSlice";
+import store from "../redux/store";
 
-const Galery = () => {
+const Galery: React.FunctionComponent = () => {
   const { photoData, dateOfStart, dateOfEnd } = useSelector(
-    (state) => state.galery
+    (state: StateProps) => state.galery
   );
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<typeof store.dispatch>();
 
   const [dateOfStartDay, setStartDay] = useState("02");
   const [dateOfStartMonth, setStartMonth] = useState("01");
@@ -17,64 +29,57 @@ const Galery = () => {
   const [dateOfEndMonth, setEndMonth] = useState("01");
   const [dateOfEndYear, setEndYear] = useState("2016");
 
-  //const [dateOfStartSubmit, submitStartDate] = useState(dateOfStart);
-  //const [dateOfEndSubmit, submitEndDate] = useState(dateOfEnd);
-
   const [pageCount, setPageCount] = useState(12);
   const [activePage, changeActivePage] = useState(1);
   const [startPage, changeStartPage] = useState(1);
   const [endPage, changeEndPage] = useState(4);
-  const [pageNumbers, setPageNumbers] = useState([]);
+  const [pageNumbers, setPageNumbers] = useState([1]);
   const perPage = 5;
 
   useEffect(() => {
     dispatch(fetchGalery(`&start_date=${dateOfStart}&end_date=${dateOfEnd}`));
     console.log(photoData);
-    const pageNumbersNew = [];
-    for (let i = 1; i <= Math.ceil(photoData.length / perPage); i++) {
+    const pageNumbersNew: number[] = [];
+    for (let i:number = 1; i <= Math.ceil(photoData.length / perPage); i++) {
       pageNumbersNew.push(i);
     }
     setPageNumbers(pageNumbersNew);
     setPageCount(pageNumbers.length);
   }, [dateOfStart, dateOfEnd]);
 
-  function handleChangeStartDay(e) {
-    e.preventDefault();
+  function handleChangeStartDay(e: React.ChangeEvent<HTMLInputElement> ) {
     setStartDay(e.target.value);
   }
 
-  function handleChangeStartMonth(e) {
-    e.preventDefault();
+  function handleChangeStartMonth(e: React.ChangeEvent<HTMLInputElement>) {
     setStartMonth(e.target.value);
   }
 
-  function handleChangeStartYear(e) {
-    e.preventDefault();
+  function handleChangeStartYear(e: React.ChangeEvent<HTMLInputElement>) {
     setStartYear(e.target.value);
   }
 
-  function handleChangeEndDay(e) {
-    e.preventDefault();
+  function handleChangeEndDay(e: React.ChangeEvent<HTMLInputElement>) {
     setEndDay(e.target.value);
   }
 
-  function handleChangeEndMonth(e) {
-    e.preventDefault();
+  function handleChangeEndMonth(e: React.ChangeEvent<HTMLInputElement>) {
     setEndMonth(e.target.value);
   }
 
-  function handleChangeEndYear(e) {
-    e.preventDefault();
+  function handleChangeEndYear(e: React.ChangeEvent<HTMLInputElement>) {
     setEndYear(e.target.value);
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(changeStart(`${dateOfStartYear}-${dateOfStartMonth}-${dateOfStartDay}`));
+    dispatch(
+      changeStart(`${dateOfStartYear}-${dateOfStartMonth}-${dateOfStartDay}`)
+    );
     dispatch(changeEnd(`${dateOfEndYear}-${dateOfEndMonth}-${dateOfEndDay}`));
   }
 
-  function changePage(number) {
+  function changePage(number: number) {
     changeActivePage(number);
     changeEndPage(number * perPage);
     changeStartPage((number - 1) * perPage);
@@ -93,9 +98,9 @@ const Galery = () => {
             ) : (
               <iframe
                 title="space-video"
-                src={photoData.url}
+                src={photo.url}
                 frameBorder="0"
-                gesture="media"
+                //gesture="media"
                 allow="encrypted-media"
                 allowFullScreen
                 className="photo"
@@ -125,10 +130,7 @@ const Galery = () => {
             )) ||
             (number === activePage && (
               <li key={number} className="page-item">
-                <a
-                  href="#"
-                  className="page-link page-link--active"
-                >
+                <a href="#" className="page-link page-link--active">
                   {number}
                 </a>
               </li>

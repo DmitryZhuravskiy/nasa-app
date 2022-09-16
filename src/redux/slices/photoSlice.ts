@@ -2,14 +2,54 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import apiKey from "../../constants";
 
-const initialState = {
-  photoData: null,
+export type PhotoDataProps = {
+  media_type: string;
+  url: string;
+  title: string;
+  date: string;
+  explanation: string;
+};
+
+export type PhotoProps = {
+  dateOfPhotoSubmit: string;
+  photoData: PhotoDataProps;
+  status: string;
+};
+
+export type PhotoPropsRandom = {
+  photoData: PhotoDataProps[];
+  dataClicker: number;
+  status: string;
+};
+
+export type GaleryProps = {
+  photoData: PhotoDataProps[],
+  dateOfStart: string,
+  dateOfEnd: string,
+  status: string,
+}
+
+export type StateProps = {
+  photo: PhotoProps;
+  random: PhotoPropsRandom;
+  galery: GaleryProps;
+};
+
+const initialState: PhotoProps = {
+  photoData: {
+    media_type: "",
+    url: "",
+    title: "",
+    date: "",
+    explanation: "",
+  },
   dateOfPhotoSubmit: "2016-01-02",
+  status: "success",
 };
 
 export const fetchPhoto = createAsyncThunk(
   "photo/fetchPhoto",
-  async (dateOfPhotoSubmit) => {
+  async (dateOfPhotoSubmit: string) => {
     const { data } = await axios.get(
       `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${dateOfPhotoSubmit}`
     );
@@ -34,7 +74,13 @@ export const photoSlice = createSlice({
       state.status = "success";
     });
     builder.addCase(fetchPhoto.rejected, (state) => {
-      state.photoData = [];
+      state.photoData = {
+        media_type: "",
+        url: "",
+        title: "",
+        date: "",
+        explanation: "",
+      };
       state.status = "error";
     });
   },

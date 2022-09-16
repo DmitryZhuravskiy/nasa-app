@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import apiKey from "../../constants";
+import {PhotoDataProps, PhotoProps, PhotoPropsRandom, StateProps } from './photoSlice';
 
-const initialState = {
+const initialState: PhotoPropsRandom = {
   photoData: [],
-  dataClicker: "1",
+  dataClicker: 1,
   status: "",
 };
 
@@ -12,7 +13,7 @@ export const fetchRandom = createAsyncThunk("random/fetchRandom", async () => {
   const { data } = await axios.get(
     `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&count=4`
   );
-  return data;
+  return data as PhotoDataProps[];
 });
 
 export const randomSlice = createSlice({
